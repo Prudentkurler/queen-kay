@@ -1,78 +1,84 @@
-'use client';
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Typewriter from "typewriter-effect";
 
-import React from 'react';
-import Link from 'next/link';
-import { ArrowRight, ShoppingBag, Clock, Star, Shield, Truck } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-
-export function HeroSection() {
+export const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-muted/20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid min-h-[80vh] items-center gap-12 py-16 lg:grid-cols-2 lg:gap-20">
-          {/* Content */}
-          <div className="flex flex-col justify-center space-y-8">
+    <section
+      className="relative h-[90vh] flex items-center justify-start bg-cover bg-center rounded-lg"
+      style={{ backgroundImage: "url('/bg-image.jpg')" }}
+    >
+      {/* Overlay for contrast */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent rounded-lg"></div>
 
-            {/* Headline */}
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
-                Import Smarter,{' '}
-                <span className="text-primary">Save Bigger</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-muted-foreground max-w-lg leading-relaxed">
-                Pre-order from China at unbeatable prices or shop in-stock items instantly. 
-                Quality products, authentic brands, delivered to your door.
-              </p>
-            </div>
+      {/* Content */}
+      <div className="relative z-10 max-w-xl md:max-w-2xl px-6 sm:px-8 lg:px-12 text-left text-white">
+        {/* Headline with typewriter */}
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-3xl md:text-4xl font-extrabold leading-tight mb-4 h-[120px]" // 👈 prevents layout shift
+        >
+          <Typewriter
+            options={{
+              strings: [
+                "Shop Smarter with Us",
+                "Driven by Ethics, Powered by Trust",
+                "Affordable Deals, Exceptional Value",
+              ],
+              autoStart: true,
+              loop: true,
+              delay: 60,
+              deleteSpeed: 40,
+            }}
+          />
+        </motion.h1>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="text-base h-12 px-8">
-                <Link href="/preorder">
-                  Start Pre-order
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-base h-12 px-8">
-                <Link href="/shop">
-                  Shop In-stock
-                </Link>
-              </Button>
-            </div>
-          </div>
+        {/* Description shows with fade-in after typewriter starts */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2, duration: 1 }} // 👈 appears after typewriter kicks in
+          className="space-y-3"
+        >
+          <p className="text-lg md:text-xl text-violet-100 max-w-prose lg:mt-2">
+            We bridge Africa to the world with{" "}
+            <span className="font-semibold text-violet-300">
+              direct imports from China
+            </span>{" "}
+            ensuring unbeatable preorder prices on quality items.
+          </p>
+          <p className="text-lg md:text-xl text-violet-100 max-w-prose">
+            No middlemen, no hidden costs. Just{" "}
+            <span className="underline decoration-violet-400 underline-offset-2">
+              smooth shopping
+            </span>{" "}
+            and faster delivery straight to you.
+          </p>
+        </motion.div>
 
-          
-         
-        </div>
-
-        {/* Social Proof Strip */}
-        <div className="border-t pt-12 pb-8">
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 text-center">
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary">10K+</div>
-              <div className="text-sm text-muted-foreground">Happy Customers</div>
-            </div>
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary">50+</div>
-              <div className="text-sm text-muted-foreground">Countries Served</div>
-            </div>
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary">98%</div>
-              <div className="text-sm text-muted-foreground">Satisfaction Rate</div>
-            </div>
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary">24/7</div>
-              <div className="text-sm text-muted-foreground">Support Available</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Background Pattern */}
-      <div className="absolute inset-0 -z-10 opacity-[0.015] dark:opacity-[0.025]">
-        <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,_currentColor_1px,_transparent_0)] bg-[length:32px_32px]"></div>
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 3, duration: 1 }} // 👈 buttons come last
+          className="flex flex-wrap gap-4 mt-6"
+        >
+          <Link href="/shop">
+            <button className="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-lg shadow-md transition">
+              Shop Now
+            </button>
+          </Link>
+          <Link href="/preorder">
+            <button className="px-6 py-3 bg-white hover:bg-violet-100 text-violet-700 font-semibold rounded-lg shadow-md transition">
+              Pre-order Deals
+            </button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
-}
+};
