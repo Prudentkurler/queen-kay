@@ -67,7 +67,61 @@ export const spotlightItems: SpotlightItem[] = [
     badge: 'Gaming Deal',
     isLimitedTime: true,
     expiresAt: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
-    featured: false
+    featured: true
+  },
+  {
+    id: 'spotlight-5',
+    productId: '7',
+    title: 'Smart Fitness Tracker',
+    description: 'Advanced fitness tracker with heart rate monitoring and GPS.',
+    discount: 35,
+    originalPrice: 159.99,
+    spotlightPrice: 103.99,
+    image: '/products/7g.png',
+    badge: 'Health Tech',
+    isLimitedTime: false,
+    featured: true
+  },
+  {
+    id: 'spotlight-6',
+    productId: '8',
+    title: 'Wireless Speaker Pro',
+    description: 'Portable Bluetooth speaker with premium sound quality.',
+    discount: 25,
+    originalPrice: 79.99,
+    spotlightPrice: 59.99,
+    image: '/products/8b.png',
+    badge: 'Audio Deal',
+    isLimitedTime: true,
+    expiresAt: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day from now
+    featured: true
+  },
+  {
+    id: 'spotlight-7',
+    productId: '2',
+    title: 'Eco-Friendly Water Bottle',
+    description: 'Sustainable stainless steel water bottle with temperature control.',
+    discount: 20,
+    originalPrice: 39.99,
+    spotlightPrice: 31.99,
+    image: '/products/2g.png',
+    badge: 'Eco-Friendly',
+    isLimitedTime: false,
+    featured: true
+  },
+  {
+    id: 'spotlight-8',
+    productId: '4',
+    title: 'Luxury Skincare Set',
+    description: 'Complete skincare routine with natural organic ingredients.',
+    discount: 40,
+    originalPrice: 149.99,
+    spotlightPrice: 89.99,
+    image: '/products/4p.png',
+    badge: 'Beauty Sale',
+    isLimitedTime: true,
+    expiresAt: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000), // 4 days from now
+    featured: true
   }
 ];
 

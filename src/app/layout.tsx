@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
+// Using system fonts instead of Google Fonts to avoid timeout issues
+const fontSans = {
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+  className: "font-sans",
+};
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const fontMono = {
+  variable: "--font-geist-mono", 
+  className: "font-mono",
+};
 
 export const metadata: Metadata = {
   title: "Queenkay Importation - Import Smarter, Save Bigger",
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${fontSans.variable} ${fontMono.variable} antialiased font-sans`}
       >
         {children}
       </body>
