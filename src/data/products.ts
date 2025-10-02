@@ -15,6 +15,12 @@ export interface Product {
   discount?: number;
   isSpotlight?: boolean;
   expiresAt?: Date;
+  type?: 'preorder' | 'instock';
+  stock?: number;
+  weight?: number;
+  createdAt?: string;
+  views?: number;
+  featured?: boolean;
 }
 
 export const categories = [
