@@ -73,7 +73,7 @@ export function CategoriesSection() {
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
             Pre-order Categories
           </Badge>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-pink-600 drop-shadow-lg">
             Browse by Category
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -126,7 +126,7 @@ export function CategoriesSection() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Button asChild size="lg" className="text-base">
+          <Button asChild size="lg" className="text-base bg-pink-600 hover:bg-pink-700 text-white font-bold border-2 border-pink-600 shadow-lg transition-colors duration-200">
             <Link href="/preorder">
               View All Categories
               <ArrowRight className="ml-2 h-5 w-5" />
