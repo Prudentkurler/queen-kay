@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
+import { MainLayout } from "@/components/layout/MainLayout";
 import "./globals.css";
 
-// Using system fonts instead of Google Fonts to avoid timeout issues
-const fontSans = {
-  variable: "--font-geist-sans",
-  className: "font-sans",
-};
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
-const fontMono = {
-  variable: "--font-geist-mono", 
-  className: "font-mono",
-};
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
+});
 
 export const metadata: Metadata = {
   title: "Queenkay Importation - Import Smarter, Save Bigger",
@@ -34,9 +37,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fontSans.variable} ${fontMono.variable} antialiased font-sans`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased font-sans`}
       >
-        {children}
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );
