@@ -2,9 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Package, Clock } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { RegularProductCard } from '@/components/product/RegularProductCard';
 import { getPreorderProducts, getInStockProducts } from '@/data/products';
 
@@ -26,75 +25,74 @@ export function ProductGrid({
   maxItems = 8
 }: ProductGridProps) {
   const displayProducts = products.slice(0, maxItems);
-  const icon = type === 'preorder' ? Clock : Package;
-  const IconComponent = icon;
 
   return (
-    <section className="py-16 lg:py-24 bg-accent">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 lg:py-20 relative overflow-hidden bg-accent-light">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className={`absolute -right-20 -top-20 h-80 w-80 rounded-full ${
+          type === 'preorder' 
+            ? 'bg-blue-600/30' 
+            : 'bg-emerald-600/30'
+        }`}></div>
+        <div className={`absolute -left-20 -bottom-20 h-60 w-60 rounded-full ${
+          type === 'preorder' 
+            ? 'bg-indigo-600/20' 
+            : 'bg-green-600/20'
+        }`}></div>
+        <div className={`absolute right-1/4 top-1/3 h-40 w-40 rounded-full ${
+          type === 'preorder' 
+            ? 'bg-purple-600/15' 
+            : 'bg-teal-600/15'
+        }`}></div>
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                <IconComponent className="h-5 w-5 text-white" />
-              </div>
-              <Badge 
-                variant="secondary" 
-                className={`text-sm font-semibold ${
-                  type === 'preorder' 
-                    ? 'bg-blue-500/90 text-white hover:bg-blue-600/90' 
-                    : 'bg-green-500/90 text-white hover:bg-green-600/90'
-                }`}
-              >
-                {type === 'preorder' ? 'Pre-order' : 'In Stock'}
-              </Badge>
-            </div>
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-white drop-shadow-sm">
-                {title}
-              </h2>
-              <p className="text-lg text-white mt-3 max-w-2xl leading-relaxed font-bold drop-shadow-sm">
-                {description}
-              </p>
-            </div>
+        <div className="text-center max-w-4xl mx-auto mb-12 lg:mb-16">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl mb-6 text-gray-900">
+            {title}
+          </h2>
+          <p className="text-md sm:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
+            {description}
+          </p>
+          
+          <div className="mt-8">
+            <Button 
+              asChild 
+              size="lg" 
+              className="bg-pink-600 text-white hover:bg-pink-700 border-2 border-pink-600 text-base font-bold px-8 py-3 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            >
+              <Link href={viewAllHref}>
+                View All Products
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
-          <Button asChild variant="secondary" size="lg" className="text-base self-start lg:self-end bg-white text-accent hover:bg-white/90 font-bold border-2 border-white shadow-lg">
-            <Link href={viewAllHref}>
-              View All
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
         </div>
 
         {/* Products Grid */}
         {displayProducts.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-4 grid-cols-2 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {displayProducts.map((product) => (
               <RegularProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 mx-auto mb-4">
-              <IconComponent className="h-8 w-8 text-white" />
+            <div className={`flex h-16 w-16 items-center justify-center rounded-2xl shadow-lg mx-auto mb-6 border-2 ${
+              type === 'preorder'
+                ? 'bg-blue-600 border-blue-500 text-white'
+                : 'bg-emerald-600 border-emerald-500 text-white'
+            }`}>
+              <span className="text-2xl font-bold">
+                {type === 'preorder' ? '🚀' : '📦'}
+              </span>
             </div>
-            <h3 className="text-xl font-bold mb-2 text-white drop-shadow-sm">No products available</h3>
-            <p className="text-white font-bold drop-shadow-sm">
+            <h3 className="text-xl font-bold mb-2 text-gray-900">No products available</h3>
+            <p className="text-gray-700">
               Check back soon for new {type === 'preorder' ? 'pre-order' : 'in-stock'} items.
             </p>
-          </div>
-        )}
-
-        {/* View More Button */}
-        {products.length > maxItems && (
-          <div className="text-center mt-12">
-            <Button asChild size="lg" className="text-base bg-white text-accent hover:bg-white/90 font-bold border-2 border-white shadow-lg">
-              <Link href={viewAllHref}>
-                View {products.length - maxItems} More Products
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
           </div>
         )}
       </div>
@@ -107,16 +105,14 @@ export function PreorderSection() {
   const preorderProducts = getPreorderProducts();
   
   return (
-    <div className="bg-accent">
-      <ProductGrid
-        title="Pre-order from China"
-        description="Get the best deals by pre-ordering directly from manufacturers. Save up to 60% with longer delivery times and be first to receive new products."
-        products={preorderProducts}
-        viewAllHref="/preorder"
-        type="preorder"
-        maxItems={4}
-      />
-    </div>
+    <ProductGrid
+      title="Pre-order from China"
+      description="Get exclusive access to the latest products before they hit the market. Save up to 60% by ordering directly from manufacturers with longer delivery times."
+      products={preorderProducts}
+      viewAllHref="/preorder"
+      type="preorder"
+      maxItems={4}
+    />
   );
 }
 
@@ -124,15 +120,13 @@ export function InStockSection() {
   const inStockProducts = getInStockProducts();
   
   return (
-    <div className="bg-accent">
-      <ProductGrid
-        title="Ready to Ship"
-        description="Need it fast? Browse our in-stock inventory for immediate shipping and quick delivery. Perfect for urgent needs and last-minute gifts."
-        products={inStockProducts}
-        viewAllHref="/shop"
-        type="instock"
-        maxItems={4}
-      />
-    </div>
+    <ProductGrid
+      title="Ready to Ship"
+      description="Need it fast? Browse our carefully curated in-stock inventory for immediate shipping and quick delivery. Perfect for urgent needs and last-minute gifts."
+      products={inStockProducts}
+      viewAllHref="/shop"
+      type="instock"
+      maxItems={4}
+    />
   );
 }
