@@ -25,7 +25,7 @@ export function SpotlightSection() {
   );
 
   return (
-    <section className="py-16 lg:py-24 bg-accent">
+    <section className="py-16 lg:py-24 bg-accent-light">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center space-y-4 mb-12">
@@ -34,12 +34,12 @@ export function SpotlightSection() {
               <Star className="h-4 w-4 text-white fill-white" />
             </div>
           </div>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-white">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-pink-600 drop-shadow-lg">
             Spotlight Deals
           </h2>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-pink-300 max-w-2xl mx-auto leading-relaxed">
             Don’t miss out on these exclusive deals and flash sales.
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-primary">
               {" "}Direct imports from China
             </span>{" "}
             at unbeatable prices.
@@ -59,7 +59,7 @@ export function SpotlightSection() {
             {spotlightProducts.map((product) => (
               <CarouselItem
                 key={product.id}
-                className="basis-1/2 md:basis-1/3 lg:basis-1/4"
+                className="basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
               >
                 <ProductCard
                   product={product}
@@ -111,15 +111,7 @@ export function SpotlightSection() {
           </div>
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
-          <Button asChild variant="secondary" size="lg" className="text-base bg-white text-accent hover:bg-white/90 border-2 border-white font-bold shadow-lg">
-            <Link href="/spotlight">
-              View All Deals
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
+       
       </div>
     </section>
   );
