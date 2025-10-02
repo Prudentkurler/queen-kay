@@ -33,11 +33,6 @@ export const mainNavLinks: NavLink[] = [
     icon: Clock
   },
   {
-    name: 'Spotlight',
-    href: '/spotlight',
-    icon: Star
-  },
-  {
     name: 'About',
     href: '/about',
     icon: Info
