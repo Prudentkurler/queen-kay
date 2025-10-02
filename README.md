@@ -1,22 +1,151 @@
-# Queen-Kay � ecommerce-frontend
+# QueenKay Importation - Ecommerce Frontend
 
-A Next.js + TypeScript frontend for the Queen-Kay e-commerce project. This repository contains the UI, styles, and client-side logic used to build and run the storefront.
+A modern, responsive ecommerce frontend built with Next.js 14, TypeScript, Tailwind CSS, and shadcn/ui components. Features a complete shopping experience with cart management, checkout flow, and product browsing.
 
-## Table of contents
-- Project overview
-- Requirements
-- Installation
-- Scripts
-- Project structure
-- Tech stack
-- Development notes
-- Contributing
-- License
+## Features
 
-## Project overview
-This project is a Next.js (App Router) frontend scaffolded with `create-next-app`. It includes TypeScript, Tailwind CSS, and common frontend libraries used for building a modern e-commerce UI.
+- 🛍️ **Complete Shopping Experience**: Browse products, add to cart, checkout
+- 🎨 **Modern UI**: Built with shadcn/ui and Tailwind CSS
+- 📱 **Responsive Design**: Works seamlessly on all devices
+- 🛒 **Persistent Cart**: Cart state persists across sessions using Zustand
+- 🔍 **Search & Filter**: Advanced product search and filtering
+- ✨ **Smooth Animations**: Framer Motion for delightful interactions
+- 🧪 **Type Safe**: Full TypeScript coverage
+- 🧪 **Testing**: Jest + React Testing Library setup
+- 📋 **Accessibility**: HCI best practices and ARIA support
 
-Use this repo to develop, preview, and deploy the storefront. The app implements pages and components under `src/app` and shared utilities inside `src/lib`.
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Components**: shadcn/ui + Radix UI
+- **State Management**: Zustand with persistence
+- **Animation**: Framer Motion
+- **Testing**: Jest + React Testing Library
+- **Linting**: ESLint
+
+## Quick Start
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Run development server**:
+   ```bash
+   npm run dev
+   ```
+
+3. **Open in browser**: [http://localhost:3000](http://localhost:3000)
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
+- `npm run test` - Run tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── (auth)/            # Authentication pages
+│   ├── shop/              # Shop and product pages
+│   ├── checkout/          # Checkout flow
+│   └── ...
+├── components/            # Reusable components
+│   ├── ui/               # shadcn/ui components
+│   ├── layout/           # Layout components
+│   ├── product/          # Product-related components
+│   ├── cart/             # Cart components
+│   └── checkout/         # Checkout components
+├── store/                # Zustand stores
+├── lib/                  # Utility functions
+├── data/                 # Mock data and types
+└── ...
+```
+
+## Key Pages
+
+- **Homepage** (`/`) - Hero, featured products, testimonials
+- **Shop** (`/shop`) - Product browsing with filters
+- **Product Detail** (`/shop/[productId]`) - Individual product pages
+- **Pre-order** (`/preorder`) - Pre-order product listings
+- **About** (`/about`) - Company information
+- **Contact** (`/contact`) - Contact form and information
+- **Checkout** (`/checkout`) - Complete checkout flow
+- **Auth** (`/signin`, `/signup`) - Authentication pages
+
+## State Management
+
+The app uses Zustand for cart state management with localStorage persistence:
+
+```typescript
+// Add item to cart
+const { addItem } = useCart();
+addItem({
+  productId: '123',
+  name: 'Product Name',
+  price: 99.99,
+  image: '/product.jpg',
+  type: 'instock'
+});
+```
+
+## Development Guidelines
+
+### Components
+- Use TypeScript for all components
+- Follow shadcn/ui patterns for consistent styling
+- Include proper ARIA attributes for accessibility
+- Add unit tests for complex components
+
+### Styling
+- Use Tailwind CSS utility classes
+- Follow the design system defined in `globals.css`
+- Use CSS variables for theme tokens
+- Ensure responsive design on all breakpoints
+
+### Testing
+- Write unit tests for utility functions
+- Test user interactions in components
+- Aim for good test coverage on critical paths
+
+## Mock Data
+
+The app uses mock data from `src/data/` for development:
+- `products.ts` - Product catalog
+- `spotlight.ts` - Featured/spotlight items
+- `testimonials.ts` - Customer testimonials
+- `navLinks.ts` - Navigation structure
+
+## Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Run tests and linting
+4. Submit a pull request
+
+## CI/CD
+
+GitHub Actions workflow automatically:
+- Runs ESLint and TypeScript checks
+- Executes test suite
+- Builds the application
+- Reports coverage (if configured)
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
 ## Requirements
 - Node.js 18+ (recommended) or compatible LTS
@@ -40,19 +169,19 @@ Note: The project uses the version ranges in `package.json`. Ensure your package
 3. Open the app in your browser at `http://localhost:3000`.
 
 ## Scripts
-- `npm run dev` � start Next.js development server
-- `npm run build` � produce an optimized production build
-- `npm run start` � start the production server after build
-- `npm run lint` � run ESLint (configured via `eslint-config-next`)
+- `npm run dev` � start Next.js development server
+- `npm run build` � produce an optimized production build
+- `npm run start` � start the production server after build
+- `npm run lint` � run ESLint (configured via `eslint-config-next`)
 
 ## Project structure (important files)
-- `src/app/layout.tsx` � application layout (shared UI wrapper)
-- `src/app/page.tsx` � home page entry
-- `src/lib` � shared utilities and helper functions
-- `src/app/globals.css` � global Tailwind/CSS styles
-- `next.config.ts` � Next.js configuration
-- `tsconfig.json` � TypeScript configuration
-- `package.json` � scripts and dependencies
+- `src/app/layout.tsx` � application layout (shared UI wrapper)
+- `src/app/page.tsx` � home page entry
+- `src/lib` � shared utilities and helper functions
+- `src/app/globals.css` � global Tailwind/CSS styles
+- `next.config.ts` � Next.js configuration
+- `tsconfig.json` � TypeScript configuration
+- `package.json` � scripts and dependencies
 
 ## Tech stack and libraries
 - Next.js (App Router)
