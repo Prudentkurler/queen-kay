@@ -1,31 +1,47 @@
 @import "tailwindcss";
 
+/* Font Variables */
+:root {
+  --font-inter: var(--font-inter);
+  --font-jetbrains-mono: var(--font-jetbrains-mono);
+}
+
 @theme {
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(222 47% 11%);
+  /* background / text */
+  --color-background: hsl(0 0% 100%); /* white */
+  --color-foreground: hsl(222 10% 12%); /* dark slate */
 
   --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(222 47% 11%);
+  --color-card-foreground: hsl(222 10% 12%);
   --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(222 47% 11%);
+  --color-popover-foreground: hsl(222 10% 12%);
 
-  --color-primary: hsl(262 83% 58%); /* violet */
+  /* primary (violet) */
+  --color-primary: hsl(262 78% 50%); /* #7C3AED */
   --color-primary-foreground: hsl(0 0% 100%);
 
-  --color-secondary: hsl(330 81% 60%); /* pink */
+  /* secondary / accent (pink) */
+  --color-secondary: hsl(330 80% 56%); /* pink-ish */
   --color-secondary-foreground: hsl(0 0% 100%);
 
   --color-accent: hsl(234 100% 93%); /* lavender gray */
   --color-accent-foreground: hsl(234 20% 25%);
 
-  --color-muted: hsl(240 20% 96%);
-  --color-muted-foreground: hsl(240 5% 46%);
+  /* accent light (pending) */
+  --color-accent-light: hsl(260 35% 95%);
 
-  --color-destructive: hsl(0 72% 51%);
+  /* success / positive */
+  --color-success: hsl(140 60% 35%); /* green */
+
+  --color-muted: hsl(240 6% 95%);
+  --color-muted-foreground: hsl(220 6% 40%);
+
+  /* destructive / negative */
+  --color-destructive: hsl(350 70% 48%); /* red */
 
   --color-border: hsl(240 5% 90%);
   --color-input: hsl(240 5% 90%);
-  --color-ring: hsl(262 83% 58%);
+  --color-ring: hsl(262 78% 45%);
 }
 
 .dark {
