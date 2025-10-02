@@ -13,7 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
+import { CartDrawer } from "@/components/cart/CartDrawer";
+import { useCart } from "@/store/useCart";
 import { mainNavLinks } from "@/data/navLinks";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -25,23 +26,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-
-interface NavbarProps {
-  cartItemCount?: number;
-}
-
-export function Navbar({ cartItemCount = 0 }: NavbarProps) {
+export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false); // 👈 Cart Drawer state
+  const { totalItems } = useCart();
   const pathname = usePathname();
+
+  const cartItemCount = totalItems();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm transition-colors duration-300">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex h-16 items-center justify-between">
           {/* Logo Section */}
           <Link href="/" className="flex items-center space-x-3">
@@ -105,23 +103,7 @@ export function Navbar({ cartItemCount = 0 }: NavbarProps) {
             </Button>
 
             {/* Cart */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative group"
-              onClick={() => setIsCartOpen(true)} // 👈 open drawer
-            >
-              <ShoppingCart className="h-5 w-5 group-hover:text-primary transition-colors" />
-              {cartItemCount > 0 && (
-                <Badge
-                  variant="destructive"
-                  className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs flex items-center justify-center"
-                >
-                  {cartItemCount > 99 ? "99+" : cartItemCount}
-                </Badge>
-              )}
-              <span className="sr-only">Shopping cart</span>
-            </Button>
+            <CartDrawer />
 
             {/* Profile/Login */}
             {/* Profile/Login */}
@@ -157,7 +139,7 @@ export function Navbar({ cartItemCount = 0 }: NavbarProps) {
                   <DropdownMenuLabel>Welcome</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/login">Login</Link>
+                    <Link href="/signin">Login</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/signup">Sign Up</Link>
@@ -245,36 +227,7 @@ export function Navbar({ cartItemCount = 0 }: NavbarProps) {
         </AnimatePresence>
       </div>
 
-      {/* Cart Drawer */}
-      <Drawer open={isCartOpen} onOpenChange={setIsCartOpen}>
-        <DrawerContent className="sm:max-w-md">
-          <DrawerHeader>
-            <DrawerTitle>Your Cart</DrawerTitle>
-            <DrawerDescription>
-              Review items before checkout.
-            </DrawerDescription>
-          </DrawerHeader>
-
-          {/* Cart Items placeholder */}
-          <div className="p-4 space-y-3">
-            {cartItemCount === 0 ? (
-              <p className="text-sm text-muted-foreground">Your cart is empty</p>
-            ) : (
-              <div className="space-y-2">
-                {/* Example cart item */}
-                <div className="flex items-center justify-between border-b pb-2">
-                  <span className="text-sm">Sample Product</span>
-                  <span className="text-sm font-medium">$50</span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <DrawerFooter>
-            <Button className="w-full">Checkout</Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+      {/* Cart Drawer - using existing CartDrawer component */}
     </nav>
   );
 }
