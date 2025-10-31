@@ -86,16 +86,7 @@ src/
 
 The app uses Zustand for cart state management with localStorage persistence:
 
-```typescript
-// Add item to cart
-const { addItem } = useCart();
-addItem({
-  productId: '123',
-  name: 'Product Name',
-  price: 99.99,
-  image: '/product.jpg',
-  type: 'instock'
-});
+
 ```
 
 ## Development Guidelines
@@ -125,12 +116,7 @@ The app uses mock data from `src/data/` for development:
 - `testimonials.ts` - Customer testimonials
 - `navLinks.ts` - Navigation structure
 
-## Contributing
 
-1. Create a feature branch
-2. Make your changes
-3. Run tests and linting
-4. Submit a pull request
 
 ## CI/CD
 
@@ -193,34 +179,10 @@ Note: The project uses the version ranges in `package.json`. Ensure your package
 - `lucide-react` for icons
 - Utility libraries: `clsx`, `class-variance-authority`, `tailwind-merge`
 
-## Development notes
-- Image assets referenced by `next/image` are stored in the `public` folder. When adding images, place them in `public` and reference via `/your-image.png`.
-- Tailwind is configured in the project (see `src/app/globals.css`). Update the Tailwind config or add utilities as needed.
-- Keep UI components small and reusable. Place shared components in a `src/components` directory if you add them.
-- For forms prefer `react-hook-form` and validate with `zod` + `@hookform/resolvers`.
-
-## Environment & secrets
-If the frontend needs to call APIs or use keys, configure environment variables in a `.env.local` file at the project root. Example:
-
-```
-NEXT_PUBLIC_API_URL=https://api.example.com
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-```
-
-Do not commit `.env.local` to version control.
-
-## Building and deploying
-- Build locally: `npm run build`
-- Start locally (after build): `npm run start`
-
-This project is ready for deployment on Vercel or any platform that supports Next.js. Follow Next.js deployment docs for platform-specific steps.
-
-## Contributing
-- Create feature branches from `main` and open pull requests with a clear description of changes.
-- Run linting before committing. Add tests where appropriate.
-
-## License
-Add a license file (for example `LICENSE`) or update this README with your chosen license. If this is private, keep the repo private.
 
 
-If you want, I can also add a short `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, or a `LICENSE` file.
+
+
+
+
+
