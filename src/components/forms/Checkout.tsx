@@ -2,17 +2,14 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { 
   CreditCard, 
   MapPin, 
-  Phone, 
   Mail, 
   Truck, 
-  Clock,
   CheckCircle 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -59,7 +56,6 @@ export function CheckoutForm() {
     },
   });
 
-  const shippingMethod = watch('shippingMethod');
   const paymentMethod = watch('paymentMethod');
 
   const onSubmit = async (data: CheckoutFormData) => {
@@ -116,7 +112,7 @@ export function CheckoutForm() {
       // Redirect to confirmation
       router.push(`/order-confirmation?orderId=${orderData.orderId}`);
       
-    } catch (error) {
+    } catch {
       toast({
         title: 'Order Failed',
         description: 'There was an error processing your order. Please try again.',
@@ -358,7 +354,7 @@ export function CheckoutForm() {
           {paymentMethod === 'momo' && (
             <div className="mt-4 p-4 bg-accent-light rounded-lg">
               <p className="text-sm text-muted-foreground">
-                After placing your order, you'll receive MOMO payment instructions via SMS.
+                After placing your order, you&apos;ll receive MOMO payment instructions via SMS.
               </p>
             </div>
           )}
