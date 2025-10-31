@@ -3,26 +3,16 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Filter, 
-  X, 
-  Star,
-  Smartphone,
-  Shirt,
-  Home,
-  Dumbbell,
-  Heart,
-  Car,
-  Book,
-  Palette
+  X 
 } from 'lucide-react';
 
 interface Category {
   id: string;
   name: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
   count: string;
 }
 
