@@ -2,20 +2,38 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { signIn } from '@/lib/auth';
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    
+    const user = signIn(email, password);
+    if (user) {
+      router.push('/admin');
+    } else {
+      setError('Invalid email or password. Try: demo@queenkay.com / demo123');
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-pink-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-neutral-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Back to Home */}
         <div className="mb-6">
-          <Button variant="ghost" size="sm" asChild className="text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="sm" asChild className="text-neutral-600 hover:text-neutral-900">
             <Link href="/" className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
               Back to Home
@@ -24,48 +42,67 @@ export default function SignInPage() {
         </div>
 
         {/* Sign In Card */}
-        <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+        <Card className="shadow-lg border border-neutral-200 bg-white">
           <CardHeader className="text-center space-y-4">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-pink-500 to-violet-600 rounded-full flex items-center justify-center">
+            <div className="mx-auto w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center">
               <span className="text-2xl font-bold text-white">QK</span>
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-gray-900">Welcome Back</CardTitle>
-              <CardDescription className="text-gray-600">
+              <CardTitle className="text-2xl font-bold text-neutral-900">Welcome back</CardTitle>
+              <CardDescription className="text-neutral-600">
                 Sign in to your Queenkay account
               </CardDescription>
             </div>
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <form className="space-y-4">
+            {error && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-800">{error}</p>
+              </div>
+            )}
+            
+            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-xs text-blue-800">
+                <strong>Demo credentials:</strong><br />
+                Email: demo@queenkay.com<br />
+                Password: demo123
+              </p>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Email */}
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-gray-700">
-                  Email Address
+                <label htmlFor="email" className="text-sm font-medium text-neutral-700">
+                  Email address
                 </label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="h-12 border-gray-200 focus:border-pink-500 focus:ring-pink-500"
+                  className="h-12 border-neutral-200 focus:border-blue-500 focus:ring-blue-500"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
 
               {/* Password */}
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="text-sm font-medium text-neutral-700">
                   Password
                 </label>
                 <div className="relative">
                   <Input
                     id="password"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="Enter your password"
-                    className="h-12 pr-12 border-gray-200 focus:border-pink-500 focus:ring-pink-500"
+                    className="h-12 border-neutral-200 focus:border-blue-500 focus:ring-blue-500 pr-12"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
+                  
                   <Button
                     type="button"
                     variant="ghost"
@@ -88,15 +125,15 @@ export default function SignInPage() {
                   <input
                     id="remember"
                     type="checkbox"
-                    className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-neutral-300 rounded"
                   />
-                  <label htmlFor="remember" className="text-sm text-gray-600">
+                  <label htmlFor="remember" className="text-sm text-neutral-600">
                     Remember me
                   </label>
                 </div>
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-pink-600 hover:text-pink-500 font-medium"
+                  className="text-sm text-blue-500 hover:text-blue-600 font-medium"
                 >
                   Forgot password?
                 </Link>
@@ -105,7 +142,7 @@ export default function SignInPage() {
               {/* Sign In Button */}
               <Button 
                 type="submit" 
-                className="w-full h-12 bg-gradient-to-r from-pink-600 to-violet-600 hover:from-pink-700 hover:to-violet-700 text-white font-semibold shadow-lg"
+                className="w-full h-12 bg-blue-500 hover:bg-blue-600 text-white font-semibold shadow-sm"
               >
                 Sign In
               </Button>
@@ -114,16 +151,16 @@ export default function SignInPage() {
             {/* Divider */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-gray-200" />
+                <span className="w-full border-t border-neutral-200" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-gray-500">Or continue with</span>
+                <span className="bg-white px-2 text-neutral-500">Or continue with</span>
               </div>
             </div>
 
             {/* Social Sign In */}
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" className="h-12 border-gray-200 hover:bg-gray-50">
+              <Button variant="outline" className="h-12 border-neutral-200 hover:bg-neutral-50">
                 <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
@@ -155,7 +192,7 @@ export default function SignInPage() {
             {/* Sign Up Link */}
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <Link
                   href="/signup"
                   className="font-medium text-pink-600 hover:text-pink-500"

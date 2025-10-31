@@ -1,103 +1,150 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-/* Font Variables */
-:root {
-  --font-inter: var(--font-inter);
-  --font-jetbrains-mono: var(--font-jetbrains-mono);
+@custom-variant dark (&:is(.dark *));
+
+/* Professional color palette - Apple/Samsung inspired */
+@theme {
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f7;
+  --color-neutral-200: #e8e8ed;
+  --color-neutral-300: #d2d2d7;
+  --color-neutral-400: #86868b;
+  --color-neutral-500: #6e6e73;
+  --color-neutral-600: #515154;
+  --color-neutral-700: #3a3a3c;
+  --color-neutral-800: #2c2c2e;
+  --color-neutral-900: #1c1c1e;
+  --color-neutral-950: #000000;
+
+  --color-blue-500: #007aff;
+  --color-blue-600: #0051d5;
+  --color-blue-700: #003d99;
+
+  --color-green-500: #34c759;
+  --color-orange-500: #ff9f0a;
+  --color-red-500: #ff3b30;
 }
 
-@theme {
-  /* background / text */
-  --color-background: hsl(0 0% 100%); /* white */
-  --color-foreground: hsl(222 10% 12%); /* dark slate */
+@layer base {
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
 
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(222 10% 12%);
-  --color-popover: hsl(0 0% 100%);
-  --color-popover-foreground: hsl(222 10% 12%);
+  /* Body typography */
+  body {
+    @apply text-neutral-900 bg-white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.6;
+  }
 
-  /* primary (violet) */
-  --color-primary: hsl(262 78% 50%); /* #7C3AED */
-  --color-primary-foreground: hsl(0 0% 100%);
+  /* Heading styles - minimal, premium */
+  h1 {
+    @apply text-5xl md:text-6xl font-semibold tracking-tight;
+  }
 
-  /* secondary / accent (pink) */
-  --color-secondary: hsl(330 80% 56%); /* pink-ish */
-  --color-secondary-foreground: hsl(0 0% 100%);
+  h2 {
+    @apply text-4xl md:text-5xl font-semibold tracking-tight;
+  }
 
-  --color-accent: hsl(234 100% 93%); /* lavender gray */
-  --color-accent-foreground: hsl(234 20% 25%);
+  h3 {
+    @apply text-2xl md:text-3xl font-semibold tracking-tight;
+  }
 
-  /* accent light (pending) */
-  --color-accent-light: hsl(260 35% 95%);
+  h4 {
+    @apply text-xl font-medium;
+  }
 
-  /* success / positive */
-  --color-success: hsl(140 60% 35%); /* green */
+  p {
+    @apply text-base text-neutral-600;
+  }
 
-  --color-muted: hsl(240 6% 95%);
-  --color-muted-foreground: hsl(220 6% 40%);
+  a {
+    @apply text-blue-500 hover:text-blue-700 transition-colors;
+  }
+}
 
-  /* destructive / negative */
-  --color-destructive: hsl(350 70% 48%); /* red */
+@layer components {
+  /* Buttons - clean, professional */
+  .btn {
+    @apply px-6 py-3 font-medium rounded-lg transition-all duration-200;
+  }
 
-  --color-border: hsl(240 5% 90%);
-  --color-input: hsl(240 5% 90%);
-  --color-ring: hsl(262 78% 45%);
+  .btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700;
+  }
+
+  .btn-secondary {
+    @apply bg-neutral-100 text-neutral-900 hover:bg-neutral-200 active:bg-neutral-300;
+  }
+
+  .btn-outline {
+    @apply border border-neutral-200 text-neutral-900 hover:bg-neutral-50 active:bg-neutral-100;
+  }
+
+  /* Text input */
+  .input {
+    @apply w-full px-4 py-3 border border-neutral-200 rounded-lg bg-white text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all;
+  }
+
+  /* Container */
+  .container-safe {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing */
+  .section-py {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  /* Divider */
+  .divider {
+    @apply h-px bg-neutral-200;
+  }
+
+  /* Subtle shadow - professional depth */
+  .shadow-card {
+    @apply shadow-sm;
+  }
+}
+
+:root {
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
 .dark {
-  @theme {
-    --color-background: hsl(222 47% 11%);
-    --color-foreground: hsl(0 0% 100%);
+  --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
 
-    --color-card: hsl(222 47% 11%);
-    --color-card-foreground: hsl(0 0% 100%);
-    --color-popover: hsl(222 47% 11%);
-    --color-popover-foreground: hsl(0 0% 100%);
-
-    --color-primary: hsl(262 83% 58%); /* violet */
-    --color-primary-foreground: hsl(0 0% 100%);
-
-    --color-secondary: hsl(330 81% 60%);
-    --color-secondary-foreground: hsl(0 0% 100%);
-
-    --color-accent: hsl(260 40% 96%); /* soft lavender-rose */
-    --color-accent-foreground: hsl(262 30% 25%);
-
-
-    --color-muted: hsl(240 3.7% 15.9%);
-    --color-muted-foreground: hsl(240 5% 64.9%);
-
-    --color-destructive: hsl(0 72% 51%);
-
-    --color-border: hsl(240 3.7% 15.9%);
-    --color-input: hsl(240 3.7% 15.9%);
-    --color-ring: hsl(262 83% 58%);
-  }
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 @layer base {
   body {
-    @apply bg-white text-foreground;
-  }
-}
-
-@layer utilities {
-  .typewriter {
-    overflow: hidden;
-    border-right: 2px solid hsl(262 83% 58%);
-    white-space: nowrap;
-    display: inline-block;
-    animation: typing 3s steps(30, end) infinite alternate,
-               blink .8s step-end infinite;
-  }
-
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-  }
-
-  @keyframes blink {
-    from, to { border-color: transparent }
-    50% { border-color: hsl(262 83% 58%); }
+    @apply text-neutral-900 bg-white;
   }
 }

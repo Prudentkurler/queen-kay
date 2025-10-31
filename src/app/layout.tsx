@@ -1,32 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-inter",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-jetbrains-mono",
-});
-
 export const metadata: Metadata = {
-  title: "Queenkay Importation - Import Smarter, Save Bigger",
-  description: "Pre-order from China at unbeatable prices or shop in-stock items instantly. Quality products, authentic brands, delivered to your door.",
-  keywords: ["import", "china", "wholesale", "pre-order", "electronics", "fashion", "deals"],
+  title: "Queenkay Importation - Premium Tech & Fashion",
+  description: "Experience the future of online shopping with Queenkay. Pre-order exclusive items from China or shop our in-stock collection of high-end electronics and fashion.",
+  keywords: ["premium electronics", "luxury fashion", "pre-order China", "exclusive tech", "Queenkay"],
   authors: [{ name: "Queenkay Importation" }],
   creator: "Queenkay Importation",
   publisher: "Queenkay Importation",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
 };
 
 export default function RootLayout({
@@ -37,9 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased font-sans`}
+        className={cn(
+          "min-h-screen bg-white font-sans antialiased",
+          inter.variable
+        )}
       >
-        <MainLayout>{children}</MainLayout>
+        <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
   );

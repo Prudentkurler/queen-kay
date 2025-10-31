@@ -39,7 +39,7 @@ export default function NotFound() {
             className="mb-8"
           >
             <p className="text-lg md:text-xl text-muted-foreground mb-4">
-              Oops! The page you're looking for doesn't exist.
+              Oops! The page you&apos;re looking for doesn&apos;t exist.
             </p>
             <p className="text-muted-foreground">
               It might have been moved, deleted, or you entered the wrong URL.
