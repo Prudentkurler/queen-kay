@@ -6,11 +6,10 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
   DrawerFooter,
   DrawerClose,
 } from "@/components/ui/drawer";
-import { ShoppingCart, Plus, Minus, X } from "lucide-react";
+import { ShoppingCart, Plus, Minus, X, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -23,7 +22,6 @@ export function CartDrawer() {
     items,
     isOpen,
     closeDrawer,
-    openDrawer,
     updateQty,
     removeItem,
     totalItems,
@@ -41,59 +39,43 @@ export function CartDrawer() {
 
   return (
     <Drawer direction="right" open={isOpen} onOpenChange={(open) => !open && closeDrawer()}>
-      {/* Trigger Button */}
-      <DrawerTrigger asChild>
-        <button
-          onClick={openDrawer}
-          className="relative p-2 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-          aria-label={`Shopping cart with ${itemCount} items`}
-        >
-          <ShoppingCart size={22} />
-          {itemCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-destructive text-white text-xs font-semibold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
-              {itemCount}
-            </span>
-          )}
-        </button>
-      </DrawerTrigger>
-
       {/* Drawer Content */}
-      <DrawerContent className="w-full sm:w-[420px] ml-auto h-full bg-background flex flex-col border-l">
-        <DrawerHeader className="border-b">
+      <DrawerContent className="w-full sm:w-[420px] ml-auto h-full bg-white flex flex-col border-l border-neutral-200">
+        <DrawerHeader className="border-b border-neutral-200 bg-white">
           <div className="flex items-center justify-between">
-            <DrawerTitle className="text-lg font-semibold text-foreground">
-              Your Cart
+            <DrawerTitle className="text-lg font-semibold text-neutral-900">
+              Shopping Cart
             </DrawerTitle>
             <DrawerClose asChild>
               <button
-                className="rounded-full p-1 hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring"
+                className="rounded-full p-2 hover:bg-neutral-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label="Close cart"
               >
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5 text-neutral-600" />
               </button>
             </DrawerClose>
           </div>
           {itemCount > 0 && (
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="text-sm text-neutral-600 mt-1">
               {itemCount} {itemCount === 1 ? "item" : "items"}
             </p>
           )}
         </DrawerHeader>
 
         {/* Items */}
-        <div className="flex-1 overflow-y-auto px-4 py-2">
+        <div className="flex-1 overflow-y-auto px-4 py-4">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center py-12">
-              <ShoppingCart className="h-16 w-16 text-muted-foreground/40 mb-4" />
-              <h3 className="text-lg font-medium text-foreground mb-2">
+              <ShoppingCart className="h-16 w-16 text-neutral-300 mb-4" />
+              <h3 className="text-lg font-medium text-neutral-900 mb-2">
                 Your cart is empty
               </h3>
-              <p className="text-sm text-muted-foreground mb-6">
+              <p className="text-sm text-neutral-600 mb-6">
                 Add some products to get started
               </p>
               <DrawerClose asChild>
                 <Link href="/shop">
-                  <Button>Browse Products</Button>
+                  <Button className="bg-blue-500 hover:bg-blue-600 text-white">Browse Products</Button>
                 </Link>
               </DrawerClose>
             </div>
@@ -105,64 +87,75 @@ export function CartDrawer() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  className="flex items-start gap-3 py-3 border-b border-border"
+                  className="flex items-start gap-3 py-4 border-b border-neutral-200 last:border-0"
                 >
-                  <div className="relative w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-muted">
+                  <Link href={`/shop/${item.productId}`} className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-neutral-100">
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
-                      className="object-cover"
+                      className="object-cover hover:scale-105 transition-transform"
                       sizes="80px"
                     />
-                  </div>
+                  </Link>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-medium text-foreground line-clamp-2 mb-1">
-                      {item.name}
-                    </h4>
-                    <p className="text-xs text-muted-foreground mb-2">
+                    <Link href={`/shop/${item.productId}`}>
+                      <h4 className="text-sm font-medium text-neutral-900 line-clamp-2 mb-1 hover:text-blue-500 transition-colors">
+                        {item.name}
+                      </h4>
+                    </Link>
+                    <p className="text-xs text-neutral-500 mb-3">
                       {item.type === "preorder" ? "Pre-order" : "In Stock"}
                       {item.category && ` • ${item.category}`}
                     </p>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 bg-neutral-100 rounded-lg p-1">
                         <button
                           onClick={() => updateQty(item.productId, item.qty - 1)}
-                          className="h-6 w-6 rounded-md border border-border hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring flex items-center justify-center"
+                          className="h-7 w-7 rounded-md hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center text-neutral-600"
                           aria-label="Decrease quantity"
                         >
                           <Minus className="h-3 w-3" />
                         </button>
-                        <span className="text-sm font-medium w-8 text-center">
+                        <span className="text-sm font-medium w-8 text-center text-neutral-900">
                           {item.qty}
                         </span>
                         <button
                           onClick={() => updateQty(item.productId, item.qty + 1)}
-                          className="h-6 w-6 rounded-md border border-border hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring flex items-center justify-center"
+                          className="h-7 w-7 rounded-md hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center text-neutral-600"
                           aria-label="Increase quantity"
                         >
                           <Plus className="h-3 w-3" />
                         </button>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-semibold text-foreground">
+                        <p className="text-sm font-semibold text-neutral-900">
                           {formatCurrency(item.price * item.qty)}
                         </p>
                         {item.originalPrice && (
-                          <p className="text-xs text-muted-foreground line-through">
+                          <p className="text-xs text-neutral-500 line-through">
                             {formatCurrency(item.originalPrice * item.qty)}
                           </p>
                         )}
                       </div>
                     </div>
+                    {/* Action buttons */}
+                    <div className="flex items-center gap-3 mt-3">
+                      <button
+                        onClick={() => removeItem(item.productId)}
+                        className="text-xs text-neutral-600 hover:text-red-600 transition-colors flex items-center gap-1"
+                      >
+                        <X className="h-3 w-3" />
+                        Remove
+                      </button>
+                      <button
+                        className="text-xs text-neutral-600 hover:text-blue-600 transition-colors flex items-center gap-1"
+                      >
+                        <Heart className="h-3 w-3" />
+                        Save for later
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    onClick={() => removeItem(item.productId)}
-                    className="p-1 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors focus:outline-none focus:ring-2 focus:ring-ring"
-                    aria-label="Remove item"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
                 </motion.div>
               ))}
             </div>
@@ -171,51 +164,60 @@ export function CartDrawer() {
 
         {/* Footer with totals and actions */}
         {items.length > 0 && (
-          <DrawerFooter className="border-t bg-muted/30 px-4 py-4">
+          <DrawerFooter className="border-t border-neutral-200 bg-neutral-50 px-4 py-4">
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span className="font-medium">{formatCurrency(sub)}</span>
+                <span className="text-neutral-600">Subtotal</span>
+                <span className="font-medium text-neutral-900">{formatCurrency(sub)}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Shipping estimate</span>
-                <span className="font-medium">
+                <span className="text-neutral-600">Shipping</span>
+                <span className="font-medium text-neutral-900">
                   {shipping === 0 ? "FREE" : formatCurrency(shipping)}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Tax (VAT)</span>
-                <span className="font-medium">{formatCurrency(tax)}</span>
+                <span className="text-neutral-600">Tax</span>
+                <span className="font-medium text-neutral-900">{formatCurrency(tax)}</span>
               </div>
-              <div className="flex justify-between text-base font-semibold pt-2 border-t border-border">
-                <span>Total</span>
-                <span className="text-primary">{formatCurrency(total)}</span>
+              <div className="flex justify-between text-base font-semibold pt-3 border-t border-neutral-200">
+                <span className="text-neutral-900">Total</span>
+                <span className="text-neutral-900">{formatCurrency(total)}</span>
               </div>
             </div>
-            <div className="flex gap-2">
+            
+            {sub < 500 && sub > 0 && (
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-xs text-blue-800">
+                  Add {formatCurrency(500 - sub)} more for free shipping
+                </p>
+              </div>
+            )}
+            
+            {shipping === 0 && sub > 0 && (
+              <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-xs text-green-800">
+                  You qualify for free shipping!
+                </p>
+              </div>
+            )}
+            
+            <div className="space-y-2">
               <DrawerClose asChild>
-                <Link href="/shop/cart" className="flex-1">
-                  <Button variant="outline" className="w-full">
-                    View Cart
+                <Link href="/checkout" className="block">
+                  <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white h-12 text-base">
+                    Proceed to Checkout
                   </Button>
                 </Link>
               </DrawerClose>
               <DrawerClose asChild>
-                <Link href="/checkout" className="flex-1">
-                  <Button className="w-full">Checkout</Button>
+                <Link href="/shop/cart" className="block">
+                  <Button variant="outline" className="w-full border-neutral-200 text-neutral-900 hover:bg-neutral-100 h-12">
+                    View Full Cart
+                  </Button>
                 </Link>
               </DrawerClose>
             </div>
-            {shipping === 0 && (
-              <p className="text-xs text-center text-muted-foreground mt-2">
-                🎉 You qualify for free shipping!
-              </p>
-            )}
-            {sub < 500 && sub > 0 && (
-              <p className="text-xs text-center text-muted-foreground mt-2">
-                Add {formatCurrency(500 - sub)} more for free shipping
-              </p>
-            )}
           </DrawerFooter>
         )}
       </DrawerContent>
