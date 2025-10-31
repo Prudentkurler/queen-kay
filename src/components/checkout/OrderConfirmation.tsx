@@ -52,7 +52,7 @@ export function OrderConfirmation({ orderData, onDownloadInvoice }: OrderConfirm
           </h1>
           
           <p className="text-muted-foreground mb-8">
-            Thank you for your order. We've sent a confirmation email to{' '}
+            Thank you for your order. We&apos;ve sent a confirmation email to{' '}
             <span className="font-medium">{orderData.customer.email}</span>
           </p>
 
@@ -134,13 +134,13 @@ export function OrderConfirmation({ orderData, onDownloadInvoice }: OrderConfirm
                   <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
                     1
                   </div>
-                  <p>We'll process your order and prepare it for shipping</p>
+                  <p>We&apos;ll process your order and prepare it for shipping</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
                     2
                   </div>
-                  <p>You'll receive tracking information when your order ships</p>
+                  <p>You&apos;ll receive tracking information when your order ships</p>
                 </div>
                 <div className="flex items-start gap-2">
                   <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold mt-0.5">
