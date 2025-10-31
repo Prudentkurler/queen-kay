@@ -13,17 +13,40 @@ import type { SpotlightItem } from "@/data/spotlight";
 interface ProductCardProps {
   product: SpotlightItem;
   className?: string;
-  variant?: 'spotlight' | 'regular';
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
-  className,
-  variant = 'spotlight' 
+  className
 }) => {
   const [timeLeft, setTimeLeft] = useState<string | null>(null);
   const { addItem } = useCart();
   const { toast } = useToast();
+
+  // ⏳ Countdown for limited-time offers - MUST be called before any conditional returns
+  useEffect(() => {
+    if (product?.isLimitedTime && product?.expiresAt) {
+      const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = product.expiresAt!.getTime() - now;
+
+        if (distance <= 0) {
+          clearInterval(timer);
+          setTimeLeft("Expired");
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        setTimeLeft(`${days}d ${hours}h ${minutes}m`);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [product?.isLimitedTime, product?.expiresAt]);
 
   // Debug logging to check data integrity
   if (!product) {
@@ -55,31 +78,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     });
   };
 
-  // ⏳ Countdown for limited-time offers
-  useEffect(() => {
-    if (product.isLimitedTime && product.expiresAt) {
-      const timer = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = product.expiresAt!.getTime() - now;
-
-        if (distance <= 0) {
-          clearInterval(timer);
-          setTimeLeft("Expired");
-          return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-        setTimeLeft(`${days}d ${hours}h ${minutes}m`);
-      }, 60000); // update every minute
-
-      return () => clearInterval(timer);
-    }
-  }, [product]);
+  // Early return if product doesn't have limited time offer
+  if (!product.isLimitedTime || !product.expiresAt) {
+    return null;
+  }
 
   return (
     <motion.div 

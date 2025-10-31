@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Star, Clock, ShoppingCart, Timer, Zap } from 'lucide-react';
+import { ShoppingCart, Timer, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { SpotlightItem } from '@/data/spotlight';
 import { cn } from '@/lib/utils';
+import { useCart } from '@/store/useCart';
+import { useToast } from '@/components/ui/toast';
 
 interface SpotlightCardProps {
   item: SpotlightItem;
@@ -18,9 +19,29 @@ export function SpotlightCard({
   item, 
   className
 }: SpotlightCardProps) {
+  const addToCart = useCart((state) => state.addItem);
+  const { toast } = useToast();
+
   const timeRemaining = item.expiresAt 
     ? Math.ceil((item.expiresAt.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
     : null;
+
+  const handleAddToCart = () => {
+    addToCart({
+      productId: item.productId.toString(),
+      name: item.title,
+      price: item.spotlightPrice,
+      originalPrice: item.originalPrice,
+      qty: 1,
+      image: '/placeholder.jpg',
+      type: 'instock',
+    });
+
+    toast({
+      title: 'Added to cart!',
+      description: `${item.title} has been added to your cart.`,
+    });
+  };
 
   return (
     <div className={cn(
@@ -95,12 +116,8 @@ export function SpotlightCard({
 
         {/* Action Button */}
         <Button 
-          className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02]"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Add spotlight item to cart:', item.productId);
-          }}
+          className="w-full bg-gradient-to-r from-pink-600 via-purple-600 to-violet-600 hover:from-pink-700 hover:via-purple-700 hover:to-violet-700 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]"
+          onClick={handleAddToCart}
         >
           <ShoppingCart className="mr-2 w-5 h-5" />
           Grab This Deal
@@ -108,8 +125,9 @@ export function SpotlightCard({
 
         {/* Limited Time Notice */}
         {item.isLimitedTime && (
-          <p className="text-xs text-center text-gray-500 mt-2">
-            ⚡ Limited time offer - Act fast!
+          <p className="text-xs text-center text-gray-500 mt-2 flex items-center justify-center gap-1">
+            <Zap className="w-3 h-3 text-orange-500" />
+            Limited time offer - Act fast!
           </p>
         )}
       </div>

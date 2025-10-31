@@ -54,7 +54,7 @@ export const ProductCardSimple: React.FC<ProductCardSimpleProps> = ({
       transition={{ duration: 0.2 }}
     >
       {/* Product Link Wrapper */}
-      <Link href={`/product/${product.id}`} className="flex flex-col h-full">
+      <Link href={`/shop/${product.id}`} className="flex flex-col h-full">
         {/* Image */}
         <div className="relative aspect-square w-full overflow-hidden bg-gray-50">
           <Image

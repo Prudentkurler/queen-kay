@@ -6,11 +6,12 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { RegularProductCard } from '@/components/product/RegularProductCard';
 import { getPreorderProducts, getInStockProducts } from '@/data/products';
+import type { Product } from '@/data/products';
 
 interface ProductGridProps {
   title: string;
   description: string;
-  products: any[];
+  products: Product[];
   viewAllHref: string;
   type: 'preorder' | 'instock';
   maxItems?: number;
