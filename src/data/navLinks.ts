@@ -2,18 +2,18 @@ import {
   Home, 
   ShoppingBag, 
   Clock, 
-  Star, 
   Info, 
   MessageCircle,
   Search,
   ShoppingCart,
   User
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 export interface NavLink {
   name: string;
   href: string;
-  icon?: any;
+  icon?: LucideIcon;
 }
 
 export const mainNavLinks: NavLink[] = [
