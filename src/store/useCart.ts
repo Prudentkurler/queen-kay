@@ -36,7 +36,14 @@ interface CartState {
   grandTotal: () => number;
   
   // Helper for checkout
-  toOrderPayload: () => any;
+  toOrderPayload: () => {
+    items: CartItem[];
+    subtotal: number;
+    shipping: number;
+    tax: number;
+    total: number;
+    timestamp: string;
+  };
 }
 
 export const useCart = create<CartState>()(
@@ -150,13 +157,7 @@ export const useCart = create<CartState>()(
       toOrderPayload: () => {
         const state = get();
         return {
-          items: state.items.map((item) => ({
-            productId: item.productId,
-            name: item.name,
-            price: item.price,
-            qty: item.qty,
-            type: item.type,
-          })),
+          items: state.items,
           subtotal: state.subtotal(),
           shipping: state.shippingEstimate(),
           tax: state.taxEstimate(),
