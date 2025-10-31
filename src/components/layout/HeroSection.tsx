@@ -1,84 +1,81 @@
-"use client";
+'use client';
 import React from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
-import Typewriter from "typewriter-effect";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
-export const HeroSection = () => {
+export function HeroSection() {
   return (
-    <section
-      className="relative h-[90vh] flex items-center justify-start bg-cover bg-center rounded-lg"
-      style={{ backgroundImage: "url('/bg-image.jpg')" }}
-    >
-      {/* Overlay for contrast */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent rounded-lg"></div>
+    <section className="relative bg-white overflow-hidden">
+      <div className="container-safe section-py">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Content */}
+          <div className="max-w-xl">
+            <h1 className="mb-6">
+              Premium products.
+              <br />
+              Delivered worldwide.
+            </h1>
+            <p className="text-xl text-neutral-600 mb-8">
+              Shop exclusive items from China or browse our in-stock collection. 
+              Quality products at unbeatable prices.
+            </p>
+            <div className="flex flex-wrap gap-4 mb-12">
+              <Link 
+                href="/shop" 
+                className="inline-flex items-center justify-center px-6 py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors shadow-sm"
+              >
+                Shop now
+              </Link>
+              <Link 
+                href="/preorder" 
+                className="inline-flex items-center justify-center px-6 py-3 border-2 border-neutral-200 text-neutral-900 rounded-lg font-medium hover:bg-neutral-50 transition-colors"
+              >
+                Pre-order from China
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-xl md:max-w-2xl px-6 sm:px-8 lg:px-12 text-left text-white">
-        {/* Headline with typewriter */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="text-3xl md:text-4xl font-extrabold leading-tight mb-4 h-[120px]" // 👈 prevents layout shift
-        >
-          <Typewriter
-            options={{
-              strings: [
-                "Shop Smarter with Us",
-                "Driven by Ethics, Powered by Trust",
-                "Affordable Deals, Exceptional Value",
-              ],
-              autoStart: true,
-              loop: true,
-              delay: 60,
-              deleteSpeed: 40,
-            }}
-          />
-        </motion.h1>
+            {/* Trust Indicators - Minimal */}
+            <div className="mt-12 flex items-center gap-8">
+              <div>
+                <p className="text-2xl font-semibold text-neutral-900">10k+</p>
+                <p className="text-sm text-neutral-500">Happy Customers</p>
+              </div>
+              <div>
+                <p className="text-2xl font-semibold text-neutral-900">500+</p>
+                <p className="text-sm text-neutral-500">Products</p>
+              </div>
+              <div>
+                <p className="text-2xl font-semibold text-neutral-900">4.8★</p>
+                <p className="text-sm text-neutral-500">Average Rating</p>
+              </div>
+            </div>
+          </div>
 
-        {/* Description shows with fade-in after typewriter starts */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 1 }} // 👈 appears after typewriter kicks in
-          className="space-y-3"
-        >
-          <p className="text-lg md:text-xl text-violet-100 max-w-prose lg:mt-2">
-            We bridge Africa to the world with{" "}
-            <span className="font-semibold text-violet-300">
-              direct imports from China
-            </span>{" "}
-            ensuring unbeatable preorder prices on quality items.
-          </p>
-          <p className="text-lg md:text-xl text-violet-100 max-w-prose">
-            No middlemen, no hidden costs. Just{" "}
-            <span className="underline decoration-violet-400 underline-offset-2">
-              smooth shopping
-            </span>{" "}
-            and faster delivery straight to you.
-          </p>
-        </motion.div>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3, duration: 1 }} // 👈 buttons come last
-          className="flex flex-wrap gap-4 mt-6"
-        >
-          <Link href="/shop">
-            <button className="px-6 py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-lg shadow-md transition">
-              Shop Now
-            </button>
-          </Link>
-          <Link href="/preorder">
-            <button className="px-6 py-3 bg-white hover:bg-violet-100 text-violet-700 font-semibold rounded-lg shadow-md transition">
-              Pre-order Deals
-            </button>
-          </Link>
-        </motion.div>
+          {/* Hero Image */}
+          <div className="relative aspect-square lg:aspect-auto lg:h-[600px]">
+            <div className="relative w-full h-full rounded-3xl overflow-hidden bg-neutral-100">
+              <Image
+                src="/products/wireless-earbuds.jpg"
+                alt="Featured Product"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+            
+            {/* Floating Card - Minimal */}
+            <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-xl rounded-2xl p-6 shadow-lg">
+              <p className="text-sm font-medium text-neutral-500 mb-1">NEW ARRIVAL</p>
+              <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                Premium Wireless Earbuds
+              </h3>
+              <p className="text-2xl font-semibold text-neutral-900">$79.99</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
+}

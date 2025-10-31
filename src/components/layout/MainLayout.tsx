@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { CartDrawer } from '@/components/cart/CartDrawer';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -28,6 +29,7 @@ export function MainLayout({ children }: MainLayoutProps) {
         {children}
       </main>
       {shouldShowNavAndFooter && <Footer />}
+      <CartDrawer />
     </div>
   );
 }

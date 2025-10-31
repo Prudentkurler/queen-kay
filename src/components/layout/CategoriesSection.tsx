@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Smartphone, Shirt, Home, Dumbbell, Palette, Car, Book, Heart } from 'lucide-react';
+import { ArrowRight, Smartphone, Shirt, Home, Dumbbell, Car, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

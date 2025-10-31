@@ -7,14 +7,11 @@ import {
   Menu,
   X,
   Search,
-  ShoppingCart,
   User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { CartDrawer } from "@/components/cart/CartDrawer";
-import { useCart } from "@/store/useCart";
 import { mainNavLinks } from "@/data/navLinks";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -29,10 +26,7 @@ import {
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { totalItems } = useCart();
   const pathname = usePathname();
-
-  const cartItemCount = totalItems();
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
